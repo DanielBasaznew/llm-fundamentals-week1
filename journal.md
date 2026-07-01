@@ -16,3 +16,10 @@ What I observed:
 - **Temperature:** Cranking the temperature up to `1.5` forced the model to generate much more expressive, creative, and descriptive narratives.
 - **Few-Shot Prompting:** Providing structural examples inside the conversation list taught the model exactly how to format its response without me needing to explain the rules explicitly.
 
+## Day 3 Journal: State Management & Chat History
+
+Today I built a full back-and-forth terminal chatbot and learned how stateful conversation memory works under the hood.
+
+What I observed:
+- **Simulating Memory:** LLMs are naturally stateless. To make them remember, we have to keep a continuous record of the conversation state and send the entire history context with every new message.
+- **State Manipulation:** By overriding the chat object variable when the user types `reset`, we can completely clear the local conversation state and start fresh without restarting the application backend.
