@@ -23,3 +23,10 @@ Today I built a full back-and-forth terminal chatbot and learned how stateful co
 What I observed:
 - **Simulating Memory:** LLMs are naturally stateless. To make them remember, we have to keep a continuous record of the conversation state and send the entire history context with every new message.
 - **State Manipulation:** By overriding the chat object variable when the user types `reset`, we can completely clear the local conversation state and start fresh without restarting the application backend.
+
+## Day 4 Journal: Streaming Responses & Final Polish
+
+
+What I observed:
+- **Streaming Impact:** Streaming makes the app feel completely fluid and responsive. The perceived latency drops dramatically because the user gets feedback instantly.
+- **Terminal vs. Real Products:** While our terminal chatbot handles text perfectly, real applications like ChatGPT can render Markdown beautifully (like converting `**` to bold text), handle file/image uploads, and format source code into dedicated copy-paste boxes.
