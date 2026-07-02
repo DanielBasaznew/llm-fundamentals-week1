@@ -3,52 +3,69 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 
-# 1. Initialize environments and client
-load_dotenv()
-client = genai.Client()
+def initialize_client():
+    """Loads environment variables and initializes the Gemini Client."""
+    load_dotenv()
+    return genai.Client()
 
-# 2. Configure our system persona and low temperature for accuracy
-config = types.GenerateContentConfig(
-    system_instruction="You are a brilliant assistant who explains concepts clearly and provides concise, accurate guidance.",
-    temperature=0.3
-)
+def create_new_chat(client, config: types.GenerateContentConfig):
+    """Creates and returns a fresh, stateful chat session with given config."""
+    return client.chats.create(model="gemini-2.5-flash", config=config)
 
-print("=========================================")
-print("     🚀 CAPSTONE CHATBOT GENERATION     ")
-print("  Commands: 'quit' to exit | 'reset' to clean state  ")
-print("=========================================\n")
-
-# 3. Create our starting chat session with our config loaded
-chat = client.chats.create(model="gemini-2.5-flash", config=config)
-
-while True:
-    user_message = input("\nYou: ")
-    
-    if user_message.strip().lower() == "quit":
-        print("\nGoodbye! Excellent building this week.")
-        break
-        
-    if user_message.strip().lower() == "reset":
-        chat = client.chats.create(model="gemini-2.5-flash", config=config)
-        print("\n🔄 Conversation memory cleared! Fresh state initialized.")
-        continue
-        
-    if not user_message.strip():
-        continue
-        
+def stream_response(chat_session, user_msg: str):
+    """Sends a user message to the chat session and streams the response token-by-token."""
     print("\nAI: ", end="", flush=True)
     
-    try:
-        # 4. Request a streaming response chunk by chunk
-        response_stream = chat.send_message_stream(user_message)
+    # Request the streaming generator from the SDK
+    response_stream = chat_session.send_message_stream(user_msg)
+    
+    # Stream chunks over the wire immediately
+    for chunk in response_stream:
+        print(chunk.text, end="", flush=True)
         
-        # 5. Loop over the text chunks as they fly over the network
-        for chunk in response_stream:
-            # print without adding newlines, and use flush=True to bypass buffering
-            print(chunk.text, end="", flush=True)
+    print() # Newline at the end of streaming
+
+def chat_loop():
+    """Main application loop managing user input, state commands, and streaming execution."""
+    client = initialize_client()
+    
+    # Configure the system persona
+    config = types.GenerateContentConfig(
+        system_instruction="You are a brilliant assistant who explains concepts clearly and provides concise, accurate guidance.",
+        temperature=0.3
+    )
+    
+    print("=========================================")
+    print("     🚀 CAPSTONE CHATBOT (REFACTORED)   ")
+    print("  Commands: 'quit' to exit | 'reset' to clean state  ")
+    print("=========================================\n")
+    
+    # Initialize our starting state
+    chat_session = create_new_chat(client, config)
+    
+    while True:
+        user_message = input("\nYou: ").strip()
+        
+        if user_message.lower() == "quit":
+            print("\nGoodbye! Clean execution.")
+            break
             
-        print() # Print an empty line at the end of the streaming response
-        
-    except Exception as e:
-        print(f"\n⚠️ Temporary disruption occurred: {e}")
-        print("Please wait a moment and try your message again.")
+        if user_message.lower() == "reset":
+            chat_session = create_new_chat(client, config)
+            print("\n🔄 Conversation memory cleared! Fresh state initialized.")
+            continue
+            
+        if not user_message:
+            continue
+            
+        try:
+            # Call our dedicated streaming function
+            stream_response(chat_session, user_message)
+            
+        except Exception as e:
+            print(f"\n⚠️ Temporary disruption occurred: {e}")
+            print("Please wait a moment and try your message again.")
+
+# Clear execution trigger when script runs directly
+if __name__ == "__main__":
+    chat_loop()
