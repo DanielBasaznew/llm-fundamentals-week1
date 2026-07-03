@@ -52,3 +52,74 @@ print(is_palindrome("racecar"))  # Expected: True
 print(is_palindrome("radar"))    # Expected: True
 print(is_palindrome("python"))   # Expected: False
 print(is_palindrome("A man a plan a canal Panama")) # Expected: True
+
+Task 4 — Debugging
+Broken Code Prompt & Output:
+Prompt: "Find the bugs in this Python code, explain why they break the execution, and give me the corrected snippet:
+
+Python
+def calculate_area(width, height)
+area = width * height
+   return Area
+```"
+- **Output:** There are three specific issues breaking this execution:
+1. **Missing Syntax Colon:** The function header `def calculate_area(width, height)` is missing a trailing `:` to define the code block.
+2. **Indentation Error:** The variable assignment `area = width * height` must be indented by 4 spaces to reside inside the function scope.
+3. **Name/Case Error:** Python is case-sensitive. The function assigns the result to lowercase `area`, but tries to return capitalized `Area`, which throws a `NameError`.
+
+**Corrected Code:**
+```python
+def calculate_area(width, height):
+    area = width * height
+    return area
+Task 5 — Brainstorming
+Basic Prompt & Output:
+Prompt: "Give me 10 names for a coding bootcamp."
+
+Output:
+
+CodeAcademy
+
+TechBootcamp
+
+LearnToCode
+
+ByteSize Coding
+
+DevSchool
+
+Programmers Hub
+
+The Coding School
+
+Software Craft
+
+Alpha Developers
+
+WebDev Academy
+
+Optimized Strategic Prompt & Output:
+Prompt: "Act as an elite brand strategist. Give me 10 unique, highly memorable, and modern names for a coding bootcamp targeting self-taught developers. Avoid generic words like 'Tech', 'Code', or 'Academy'. Make them punchy and short."
+
+Output:
+
+Forge (Evokes raw building, molding, and creation)
+
+Syntax (Minimalist, core engineering foundational element)
+
+Unbound (Represents breaking free from non-traditional routes)
+
+Foundry (A workshop where raw elements are cast into steel tools)
+
+Compile (Punchy software action that brings logic together)
+
+Vector (Indicates moving forward with speed and direction)
+
+Apex (Targeting reaching the peak of their self-taught journey)
+
+Shift (Represents a career pivot or perspective change)
+
+Artifact (Beautifully engineered building outputs)
+
+Kinetik (Symbolizes movement, energy, and rapid progress)
+
