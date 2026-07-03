@@ -69,3 +69,4 @@ def chat_loop():
 # Clear execution trigger when script runs directly
 if __name__ == "__main__":
     chat_loop()
+    
