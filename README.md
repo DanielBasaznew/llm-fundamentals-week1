@@ -13,6 +13,7 @@ A collection of interactive Python tools and scripts built to master LLM APIs, p
 ## 🚀 Installation & Quick Start
 
 ### 1. Clone the Workspace
+
 ```bash
 git clone https://github.com/DanielBasaznew/llm-fundamentals-week1
 cd llm-fundamentals-week1
@@ -39,7 +40,7 @@ python chatbot.py
 python playground.py
 python tool_chat.py
 
-💡 Engineering Insights & Key Takeaways
+##💡 Engineering Insights & Key Takeaways
 
 State Control Management: LLMs are intrinsically stateless. Building an interactive terminal application requires manually assembling and preserving the sequential message arrays (user and model role dictionaries) to sustain consistent context tracking.
 
