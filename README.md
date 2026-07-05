@@ -40,7 +40,7 @@ python chatbot.py
 python playground.py
 python tool_chat.py
 
-##💡 Engineering Insights & Key Takeaways
+💡 Engineering Insights & Key Takeaways
 
 State Control Management: LLMs are intrinsically stateless. Building an interactive terminal application requires manually assembling and preserving the sequential message arrays (user and model role dictionaries) to sustain consistent context tracking.
 
